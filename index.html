@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit Converter</title>
+  </head>
+  <body>
+    <h1>Unit Converter</h1>
+    <div class="menu">
+      <ul class="menu-list">
+        <li
+          onclick="selectPageL(page)"
+          class="menu-item-active"
+          id="menu-item-l"
+        >
+          Length
+        </li>
+        <li onclick="selectPageW(page)" id="menu-item-w" class="menu-item">
+          Weight
+        </li>
+        <li onclick="selectPageT(page)" id="menu-item-t" class="menu-item">
+          Temperature
+        </li>
+      </ul>
+    </div>
+
+    <iframe
+      id="page"
+      src="length.html"
+      width="100%"
+      height="500px"
+      frameborder="0"
+    ></iframe>
+    <script>
+      function selectPageL(id) {
+        id.src = "length.html";
+        document.getElementById("menu-item-l").className = "menu-item-active";
+        document.getElementById("menu-item-w").className = "menu-item";
+        document.getElementById("menu-item-t").className = "menu-item";
+      }
+      function selectPageW(id) {
+        id.src = "weight.html";
+        document.getElementById("menu-item-w").className = "menu-item-active";
+        document.getElementById("menu-item-l").className = "menu-item";
+        document.getElementById("menu-item-t").className = "menu-item";
+      }
+      function selectPageT(id) {
+        id.src = "temperature.html";
+        document.getElementById("menu-item-t").className = "menu-item-active";
+        document.getElementById("menu-item-l").className = "menu-item";
+        document.getElementById("menu-item-w").className = "menu-item";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature</title>
+  </head>
+  <body>
+    <div class="calculate" id="calculate">
+      <div class="input-container">
+        <label> Enter the temperature to convert </label>
+        <input type="number" id="inputValue" />
+      </div>
+      <div class="input-container">
+        <label> Unit to convert from </label>
+        <select id="unitFrom">
+          <option value="C">Celsius (°C)</option>
+          <option value="F">Fahrenheit (°F)</option>
+          <option value="K">Kelvin (K)</option>
+        </select>
+      </div>
+      <div class="input-container">
+        <label> Unit to convert to </label>
+        <select id="unitTo">
+          <option value="C">Celsius (°C)</option>
+          <option value="F">Fahrenheit (°F)</option>
+          <option value="K">Kelvin (K)</option>
+        </select>
+      </div>
+      <button onclick="convertTemperature()" class="btn" name="convert">
+        Convert
+      </button>
+    </div>
+    <div class="result" id="result" style="display: none">
+      <label>Result of your calculation</label>
+      <div class="res-eq">
+        <div class="length-value-pre" id="tempValuePre">0</div>
+        <div class="length-unit-pre" id="tempUnitPre">C</div>
+        =
+        <div class="length-value-res" id="tempValueRes">0</div>
+        <div class="length-unit-res" id="tempUnitRes">C</div>
+      </div>
+      <button onclick="hideResult(result)" class="btn" name="reset">
+        Reset
+      </button>
+    </div>
+    <script>
+      function convertTemperature() {
+        const inputValue = parseFloat(
+          document.getElementById("inputValue").value
+        );
+        const unitFrom = document.getElementById("unitFrom").value;
+        const unitTo = document.getElementById("unitTo").value;
+        let convertedValue;
+
+        if (!isNaN(inputValue)) {
+          if (unitFrom === "C") {
+            if (unitTo === "F") {
+              convertedValue = (inputValue * 9) / 5 + 32;
+            } else if (unitTo === "K") {
+              convertedValue = inputValue + 273.15;
+            } else {
+              convertedValue = inputValue;
+            }
+          } else if (unitFrom === "F") {
+            if (unitTo === "C") {
+              convertedValue = ((inputValue - 32) * 5) / 9;
+            } else if (unitTo === "K") {
+              convertedValue = ((inputValue - 32) * 5) / 9 + 273.15;
+            } else {
+              convertedValue = inputValue;
+            }
+          } else if (unitFrom === "K") {
+            if (unitTo === "C") {
+              convertedValue = inputValue - 273.15;
+            } else if (unitTo === "F") {
+              convertedValue = ((inputValue - 273.15) * 9) / 5 + 32;
+            } else {
+              convertedValue = inputValue;
+            }
+          }
+
+          document.getElementById("tempValuePre").innerText = inputValue;
+          document.getElementById("tempUnitPre").innerText = unitFrom;
+          document.getElementById("tempValueRes").innerText =
+            convertedValue.toFixed(2);
+          document.getElementById("tempUnitRes").innerText = unitTo;
+
+          showResult(document.getElementById("result"));
+        } else {
+          alert("Please enter a valid number");
+        }
+      }
+
+      function showResult(id) {
+        id.style.display = "block";
+        document.getElementById("calculate").style.display = "none";
+      }
+
+      function hideResult(id) {
+        id.style.display = "none";
+        document.getElementById("calculate").style.display = "block";
+        document.getElementById("inputValue").value = "";
+      }
+    </script>
+  </body>
+</html>

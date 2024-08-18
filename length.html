@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Length</title>
+  </head>
+  <body>
+    <div class="calculate" id="calculate">
+      <div class="input-container">
+        <label> Enter the length to convert </label>
+        <input type="number" id="inputValue" />
+      </div>
+      <div class="input-container">
+        <label> Unit to convert from </label>
+        <select id="unitFrom">
+          <option value="m">Meter (m)</option>
+          <option value="cm">Centimeter (cm)</option>
+          <option value="mm">Millimeter (mm)</option>
+          <option value="km">Kilometer (km)</option>
+          <option value="nm">Nanometer (nm)</option>
+          <option value="μm">Micrometer (μm)</option>
+          <option value="pm">Picometer (pm)</option>
+          <option value="in">Inch (in)</option>
+          <option value="ft">Foot (ft)</option>
+          <option value="yd">Yard (yd)</option>
+          <option value="mi">Mile (mi)</option>
+        </select>
+      </div>
+      <div class="input-container">
+        <label> Unit to convert to </label>
+        <select id="unitTo">
+          <option value="m">Meter (m)</option>
+          <option value="cm">Centimeter (cm)</option>
+          <option value="mm">Millimeter (mm)</option>
+          <option value="km">Kilometer (km)</option>
+          <option value="nm">Nanometer (nm)</option>
+          <option value="μm">Micrometer (μm)</option>
+          <option value="pm">Picometer (pm)</option>
+          <option value="in">Inch (in)</option>
+          <option value="ft">Foot (ft)</option>
+          <option value="yd">Yard (yd)</option>
+          <option value="mi">Mile (mi)</option>
+        </select>
+      </div>
+      <button onclick="convertLength()" class="btn" name="convert">
+        Convert
+      </button>
+    </div>
+    <div class="result" id="result" style="display: none">
+      <label>Result of your calculation</label>
+      <div class="res-eq">
+        <div class="length-value-pre" id="lengthValuePre">0</div>
+        <div class="length-unit-pre" id="lengthUnitPre">m</div>
+        =
+        <div class="length-value-res" id="lengthValueRes">0</div>
+        <div class="length-unit-res" id="lengthUnitRes">m</div>
+      </div>
+      <button onclick="hideResult(result)" class="btn" name="reset">
+        Reset
+      </button>
+    </div>
+    <script>
+      const conversionFactors = {
+        m: 1,
+        cm: 100,
+        mm: 1000,
+        km: 0.001,
+        nm: 1e9,
+        μm: 1e6,
+        pm: 1e12,
+        in: 39.3701,
+        ft: 3.28084,
+        yd: 1.09361,
+        mi: 0.000621371,
+      };
+
+      function convertLength() {
+        const inputValue = parseFloat(
+          document.getElementById("inputValue").value
+        );
+        const unitFrom = document.getElementById("unitFrom").value;
+        const unitTo = document.getElementById("unitTo").value;
+
+        if (!isNaN(inputValue)) {
+          const valueInMeters = inputValue / conversionFactors[unitFrom];
+          const convertedValue = valueInMeters * conversionFactors[unitTo];
+
+          document.getElementById("lengthValuePre").innerText = inputValue;
+          document.getElementById("lengthUnitPre").innerText = unitFrom;
+          document.getElementById("lengthValueRes").innerText =
+            convertedValue.toFixed(2);
+          document.getElementById("lengthUnitRes").innerText = unitTo;
+
+          showResult(document.getElementById("result"));
+        } else {
+          alert("Please enter a valid number");
+        }
+      }
+
+      function showResult(id) {
+        id.style.display = "block";
+        document.getElementById("calculate").style.display = "none";
+      }
+
+      function hideResult(id) {
+        id.style.display = "none";
+        document.getElementById("calculate").style.display = "block";
+        document.getElementById("inputValue").value = "";
+      }
+    </script>
+  </body>
+</html>
